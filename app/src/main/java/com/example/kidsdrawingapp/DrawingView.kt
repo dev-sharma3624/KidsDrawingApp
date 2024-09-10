@@ -9,12 +9,12 @@ import android.view.View
 
 class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
-    private var mDrawPath: CustomPath? = null
+    private var mDrawPath: CustomPath? = null  //holds the path beign drawn
     private var mCanvasBitmap: Bitmap? = null
-    private var mDrawPaint: Paint? = null
+    private var mDrawPaint: Paint? = null  //controls the current brush settings
     private var mCanvasPaint: Paint? = null
-    private var mBrushSize: Float = 0.toFloat()
-    private var color = Color.BLACK
+    private var mBrushSize: Float = 0.toFloat()  //used to keep track of the current drawing tool
+    private var color = Color.BLACK             //settings and are passed to customPath for storing the per path
     private var canvas: Canvas? = null
     private val mPaths = ArrayList<CustomPath>()    //to make the drawings persisting
     private val mUndoPaths = ArrayList<CustomPath>()
@@ -52,6 +52,11 @@ class DrawingView(context: Context, attrs: AttributeSet) : View(context, attrs) 
         canvas.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
 
         for(path in mPaths){
+            /*
+            this for loop runs on the mPaths variable which is an array list
+            of type customPath and for every path in it, it sets the current mDrawpaint
+            properties to the ones that are stored and then paints them on the canvas
+            */
             mDrawPaint!!.strokeWidth = path.brushThickness
             mDrawPaint!!.color = path.color
             canvas.drawPath(path, mDrawPaint!!)
